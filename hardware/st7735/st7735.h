@@ -143,7 +143,7 @@ void lcd_display_cpuLoad(void);
 void lcd_display_ram(void);
 void lcd_display_temp(void);
 void lcd_display_disk(void);
-void lcd_display_percentage(uint8_t val, uint16_t color);
+void lcd_display_percentage(uint8_t val, uint8_t warning, uint8_t critical);
 #ifdef __cplusplus
 }
 #endif

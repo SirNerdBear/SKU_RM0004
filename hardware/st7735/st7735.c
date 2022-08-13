@@ -222,8 +222,8 @@ void lcd_display(uint8_t symbol)
 
 }
 
-void lcd_display_percentage(uint8_t val, uint16_t color)
-{
+void lcd_display_percentage(uint8_t val, const uint8_t warning, const uint8_t critical){
+  uint16_t color = ST7735_GREEN;
   uint8_t count = 0;
   uint8_t xCoordinate = 30;
   val += 10;
@@ -234,6 +234,8 @@ void lcd_display_percentage(uint8_t val, uint16_t color)
   val /= 10;
   for(count = 0; count < val; count++)
   {
+    if((critical-1) / 10 < count) color = ST7735_RED;
+    else if((warning-1) / 10 < count) color = ST7735_YELLOW;
     lcd_fill_rectangle(xCoordinate,60,6,10,color);
     xCoordinate+=10;
   }
@@ -242,6 +244,7 @@ void lcd_display_percentage(uint8_t val, uint16_t color)
     lcd_fill_rectangle(xCoordinate,60,6,10,ST7735_GRAY);
     xCoordinate+=10;
   }
+   
 }
 
 void lcd_display_cpuLoad(void)
@@ -266,9 +269,7 @@ void lcd_display_cpuLoad(void)
   lcd_write_string(36,35,"CPU:",Font_11x18,ST7735_WHITE,ST7735_BLACK);
   lcd_write_string(80,35,cpuStr,Font_11x18,ST7735_WHITE,ST7735_BLACK);
   lcd_write_string(113,35,"%",Font_11x18,ST7735_WHITE,ST7735_BLACK);
-  if(cpuLoad > 90) lcd_display_percentage(cpuLoad,ST7735_RED);
-    else if(cpuLoad > 60) lcd_display_percentage(cpuLoad,ST7735_YELLOW);
-      else lcd_display_percentage(cpuLoad,ST7735_GREEN);
+  lcd_display_percentage(cpuLoad, 60, 90);
 }
 
 
@@ -288,14 +289,7 @@ void lcd_display_ram(void)
   lcd_write_string(36,35,"RAM:",Font_11x18,ST7735_WHITE,ST7735_BLACK);
   lcd_write_string(80,35,residueStr,Font_11x18,ST7735_WHITE,ST7735_BLACK);
   lcd_write_string(113,35,"%",Font_11x18,ST7735_WHITE,ST7735_BLACK);
-  if(residue >= 90)
-   lcd_display_percentage(residue,ST7735_RED);
-  else
-   if(residue >= 80)
-    lcd_display_percentage(residue,ST7735_YELLOW);
-    else
-     lcd_display_percentage(residue,ST7735_GREEN);
-
+  lcd_display_percentage(residue, 80, 90);
 }
 
 void lcd_display_temp(void)
@@ -319,30 +313,14 @@ void lcd_display_temp(void)
     lcd_write_string(118,35,"C",Font_11x18,ST7735_WHITE,ST7735_BLACK);
   }
 
-  if(TEMPERATURE_TYPE == FAHRENHEIT) //Convert back to 'C' for % display 
+  if(TEMPERATURE_TYPE == FAHRENHEIT) //Convert back to 'C' for % display p -
   {
     temp -= 32;
     temp /= 1.8;
   }
   
   /* Compute Color to use with graph display */
-  if( (uint16_t) temp >= TEMP_CRITICAL)
-  {
-     tw_color = ST7735_RED;
-  }
-  else
-  {
-     if ( (uint16_t) temp >=  TEMP_WARNING)
-     {
-        tw_color = ST7735_YELLOW;
-     }
-      else 
-     {
-        tw_color = ST7735_GREEN;
-     }
-  }
- 
-  lcd_display_percentage((uint16_t) temp, tw_color); 
+  lcd_display_percentage(temp, TEMP_WARNING, TEMP_CRITICAL);
 }
 
 
@@ -371,12 +349,7 @@ void lcd_display_disk(void)
   lcd_write_string(30,35,"DISK:",Font_11x18,ST7735_WHITE,ST7735_BLACK);
   lcd_write_string(85,35,residueStr,Font_11x18,ST7735_WHITE,ST7735_BLACK);
   lcd_write_string(118,35,"%",Font_11x18,ST7735_WHITE,ST7735_BLACK);
-  if(residue >= 90)
-    lcd_display_percentage(residue,ST7735_RED);
-    else if(residue >= 80)
-        lcd_display_percentage(residue,ST7735_YELLOW);
-        else
-            lcd_display_percentage(residue,ST7735_GREEN);
+  lcd_display_percentage(residue, 80, 90);
 }
 
 

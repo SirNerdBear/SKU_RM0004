@@ -20,7 +20,7 @@ sudo reboot
 
 ##  Clone SKU_RM0004 library 
 ```bash
-git clone https://github.com/UCTRONICS/SKU_RM0004.git
+git clone https://github.com/TiVoHomeUser/SKU_RM0004.git
 ```
 ## Compile 
 ```bash
