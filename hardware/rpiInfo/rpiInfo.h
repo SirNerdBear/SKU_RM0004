@@ -5,7 +5,7 @@
 /**********Select display temperature type**************/
 #define CELSIUS       0
 #define FAHRENHEIT    1
-#define TEMPERATURE_TYPE  FAHRENHEIT
+#define TEMPERATURE_TYPE  CELSIUS
 /*
  * The operating temperature for a
  * Raspberry Pi is between 0°C and 85°C. Specifically, the CPU is qualified from -40°C to
