@@ -39,11 +39,11 @@ int main(void)
 		lcd_display(symbol);
 		sleep(1);
         sleep(1);
-		symbol++;
-		if(symbol==4)
-        {
-        	symbol=0;
-        }
+		// symbol++;
+		// if(symbol==4)
+        // {
+        // 	symbol=0;
+        // }
 	}
 	return 0;
 }
