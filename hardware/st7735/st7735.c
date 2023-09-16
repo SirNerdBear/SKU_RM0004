@@ -278,7 +278,7 @@ void lcd_display_cpuLoad(void)
   {   
     lcd_write_string(0,0,CUSTOM_DISPLAY,Font_8x16,ST7735_WHITE,ST7735_BLACK);   //Send the IP address to the lower machine
   }
-  lcd_write_string(80-( (len/2) * 4),35,base_hostname,Font_11x18,ST7735_YELLOW,ST7735_BLACK);
+  lcd_write_string(80-( (len/2) * 14),35,base_hostname,Font_11x18,ST7735_YELLOW,ST7735_BLACK);
   // lcd_write_string(80,35,cpuStr,Font_11x18,ST7735_WHITE,ST7735_BLACK);
   // lcd_write_string(113,35,"%",Font_11x18,ST7735_WHITE,ST7735_BLACK);
   lcd_display_percentage(cpuLoad, 60, 90);
