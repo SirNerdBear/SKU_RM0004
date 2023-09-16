@@ -28,7 +28,6 @@ int main(void)
 	signal(SIGABRT, onterm); // kill
 	running = true;
 	uint8_t symbol = 5;
-	time_t seconds = 0;
 
 	if (lcd_begin()) // LCD Screen initialization
 	{
@@ -37,22 +36,14 @@ int main(void)
 	sleep(1);
 	while (running == true)
 	{
-		seconds = time(NULL);
-		if (symbol == 5 || (int)seconds % 5)
-		{
-			symbol++;
-		}
-		else
-		{
-			sleep(1);
-			continue;
-		}
-		symbol++;
-		if (symbol == 4)
-		{
-			symbol = 0;
-		}
 		lcd_display(symbol);
+		sleep(1);
+        sleep(1);
+		symbol++;
+		if(symbol==4)
+        {
+        	symbol=0;
+        }
 	}
 	return 0;
 }

@@ -16,7 +16,6 @@
 #include <fcntl.h>
 #include "st7735.h"
 #include <stdlib.h>
-
 /*
 * Get the IP address of wlan0 or eth0
 */
