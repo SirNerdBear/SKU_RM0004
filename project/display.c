@@ -42,7 +42,7 @@ int main(void)
 		}
 		sleep(1);
 		seconds++;
-		if(seconds==10)
+		if(seconds==59)
         {
         	seconds=0;
         }
