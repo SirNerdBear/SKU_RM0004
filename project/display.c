@@ -27,7 +27,7 @@ int main(void)
 	signal(SIGINT, onterm);	 // Ctrl+c
 	signal(SIGABRT, onterm); // kill
 	running = true;
-	uint8_t symbol = 0;
+	uint8_t seconds = 0;
 
 	if (lcd_begin()) // LCD Screen initialization
 	{
@@ -36,14 +36,16 @@ int main(void)
 	sleep(1);
 	while (running == true)
 	{
-		lcd_display(symbol);
+		if (seconds == 0)
+		{
+			lcd_display(0);
+		}
 		sleep(1);
-        sleep(1);
-		// symbol++;
-		// if(symbol==4)
-        // {
-        // 	symbol=0;
-        // }
+		seconds++;
+		if(seconds==10)
+        {
+        	seconds=0;
+        }
 	}
 	return 0;
 }
