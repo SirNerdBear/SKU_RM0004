@@ -253,6 +253,9 @@ void lcd_display_cpuLoad(void)
   uint8_t  cpuLoad = 0;
   uint8_t cpuStr[10] = {0};
   lcd_fill_screen(ST7735_BLACK);
+  char hostname[12];
+  hostname[11] = '\0';
+  gethostname(hostname, 11);
   cpuLoad = get_cpu_message();
   sprintf(cpuStr, "%d", cpuLoad);
   lcd_fill_rectangle(0,20,ST7735_WIDTH,5,ST7735_BLUE);
@@ -266,9 +269,9 @@ void lcd_display_cpuLoad(void)
   {   
     lcd_write_string(0,0,CUSTOM_DISPLAY,Font_8x16,ST7735_WHITE,ST7735_BLACK);   //Send the IP address to the lower machine
   }
-  lcd_write_string(36,35,"CPU:",Font_11x18,ST7735_WHITE,ST7735_BLACK);
-  lcd_write_string(80,35,cpuStr,Font_11x18,ST7735_WHITE,ST7735_BLACK);
-  lcd_write_string(113,35,"%",Font_11x18,ST7735_WHITE,ST7735_BLACK);
+  lcd_write_string(36,35,hostname,Font_11x18,ST7735_WHITE,ST7735_BLACK);
+  // lcd_write_string(80,35,cpuStr,Font_11x18,ST7735_WHITE,ST7735_BLACK);
+  // lcd_write_string(113,35,"%",Font_11x18,ST7735_WHITE,ST7735_BLACK);
   lcd_display_percentage(cpuLoad, 60, 90);
 }
 
